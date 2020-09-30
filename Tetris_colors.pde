@@ -1,3 +1,127 @@
+void tetromine_update(int[] movil_tetromine_x, int[] movil_tetromine_y){ // Erases the blocks to update when a rotation happens
+    for(int i = 0; i < 4; ++i){
+        scenario[movil_tetromine_y[i]][movil_tetromine_x[i]] = 0;
+    }
+}
+
+
+int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ // Rotates T tetromine using a reference block (A static one)
+    int ref_x; // Coords of the reference block
+    int ref_y;
+
+    switch(rotation){
+        case 0:{
+            ref_y = movil_tetromine_y[3];
+            ref_x = movil_tetromine_x[3];
+
+            tetromine_update(movil_tetromine_x, movil_tetromine_y);
+
+            scenario[ref_y][ref_x] = 255;      
+            scenario[ref_y + 1][ref_x - 1] = 255;
+            scenario[ref_y + 1][ref_x] = 255;
+            scenario[ref_y + 2][ref_x]  = 255;
+
+            movil_tetromine_y[0] = ref_y + 2;
+            movil_tetromine_x[0] = ref_x;
+
+            movil_tetromine_y[1] = ref_y + 1;
+            movil_tetromine_x[1] = ref_x;
+
+            movil_tetromine_y[2] = ref_y + 1;
+            movil_tetromine_x[2] = ref_x - 1;
+
+            ++rotation;            
+        }
+        break;
+
+        case 1:{
+
+            if(movil_tetromine_x[0] == 9)
+            {
+               movement(movil_tetromine_x, movil_tetromine_y, 2); //Because is near the border, it is necessary to move it to the left 
+            }
+
+            ref_y = movil_tetromine_y[2];
+            ref_x = movil_tetromine_x[2];
+
+            tetromine_update(movil_tetromine_x, movil_tetromine_y);
+
+            scenario[ref_y][ref_x] = 255;      
+            scenario[ref_y][ref_x + 1] = 255;
+            scenario[ref_y][ref_x + 2] = 255;
+            scenario[ref_y + 1][ref_x + 1]  = 255;
+
+            movil_tetromine_y[0] = ref_y + 1;
+            movil_tetromine_x[0] = ref_x + 1;
+
+            movil_tetromine_y[1] = ref_y;
+            movil_tetromine_x[1] = ref_x + 2;
+
+            movil_tetromine_y[2] = ref_y;
+            movil_tetromine_x[2] = ref_x + 1;
+
+            movil_tetromine_y[3] = ref_y;
+            movil_tetromine_x[3] = ref_x;
+
+            ++rotation;  
+        }
+        break;
+
+        case 2:{
+            ref_y = movil_tetromine_y[0];
+            ref_x = movil_tetromine_x[0];
+
+            tetromine_update(movil_tetromine_x, movil_tetromine_y);
+
+            scenario[ref_y][ref_x] = 255;      
+            scenario[ref_y - 1][ref_x] = 255;
+            scenario[ref_y - 1][ref_x + 1] = 255;
+            scenario[ref_y - 2][ref_x]  = 255;
+
+            movil_tetromine_y[1] = ref_y - 1;
+            movil_tetromine_x[1] = ref_x + 1;
+
+            movil_tetromine_y[2] = ref_y - 1;
+            movil_tetromine_x[2] = ref_x;
+
+            movil_tetromine_y[3] = ref_y - 2;
+            movil_tetromine_x[3] = ref_x;
+
+            ++rotation; 
+        }
+        break;
+
+        case 3:{
+            ref_y = movil_tetromine_y[3];
+            ref_x = movil_tetromine_x[3];
+
+            tetromine_update(movil_tetromine_x, movil_tetromine_y);
+
+            scenario[ref_y][ref_x] = 255;      
+            scenario[ref_y + 1][ref_x - 1] = 255;
+            scenario[ref_y + 1][ref_x] = 255;
+            scenario[ref_y + 1][ref_x + 1]  = 255;
+
+            movil_tetromine_y[0] = ref_y + 1;
+            movil_tetromine_x[0] = ref_x + 1;
+
+            movil_tetromine_y[1] = ref_y + 1;
+            movil_tetromine_x[1] = ref_x;
+
+            movil_tetromine_y[2] = ref_y + 1;
+            movil_tetromine_x[2] = ref_x - 1;
+
+            rotation = 0;
+        }
+    }
+
+    return rotation;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 void setup(){
 
     size(256, 512);
@@ -57,6 +181,12 @@ void draw(){
     }
     ++tempo;
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_code){
     boolean possible = true;
@@ -128,8 +258,8 @@ void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_cod
 
 void keyPressed() {
     if(key == 'r'){
-        rotation = tetromine_rotation(tetromine_code, rotation, movil_tetromine_x, movil_tetromine_y);
-        print(rotation);
+        tetromine_rotation(tetromine_code);
+        //print(rotation);
     }
     if(key == CODED){
         if(keyCode == RIGHT){
@@ -215,74 +345,14 @@ boolean gravity(int[] movil_tetromine_x, int[] movil_tetromine_y, color tetromin
     return true; 
 }
 
-int tetromine_rotation(int tetromine_code, int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
-    tempo = 0;
+void tetromine_rotation(int tetromine_code){
+    tempo = 15;
 
-    int x; // Auxiliar variables
-    int y;
-    
     switch(tetromine_code){
-        case 1:{
-            switch(rotation){
-                case 0:{
-                   y = movil_tetromine_y[0];
-                   x = movil_tetromine_x[0];
-                   
-                   movil_tetromine_y[0] += 1;
-                   movil_tetromine_x[0] -= 1;
-
-                   scenario[y][x] = 0;
-                   scenario[y + 1][x - 1] = 255;
-
-                   ++rotation;
-                }
-                break;
-
-                case 1:{
-                    y = movil_tetromine_y[3];
-                    x = movil_tetromine_x[3];
-
-                    movil_tetromine_y[3] += 1;
-                    movil_tetromine_x[3] += 1;
-
-                    scenario[y][x] = 0;
-                    scenario[y + 1][x + 1] = 255;
-
-                    ++rotation;
-                }
-                break;
-
-                /*case 2:{
-                    y = movil_tetromine_y[2];   La pieza explota subita y misteriosamente
-                    x = movil_tetromine_x[2];
-
-                    movil_tetromine_y[3] -= 1;
-                    movil_tetromine_x[3] += 1;
-
-                    scenario[y][x] = 0;
-                    scenario[y - 1][x + 1] = 255;
-
-                    ++rotation;
-                }
-                break; */
-
-                case 2:{
-                    y = movil_tetromine_y[0];
-                    x = movil_tetromine_x[0];
-
-                    movil_tetromine_y[0] -= 1;
-                    movil_tetromine_x[0] -= 1;
-
-                    scenario[y][x] = 0;
-                    scenario[y - 1][x - 1] = 255;
-
-                    rotation = 0;
-                }
-            }
+        case 1: {
+            rotation = T_rotation(rotation, movil_tetromine_x, movil_tetromine_y);
         }
     }
-
-    return rotation;
 }
 
 
