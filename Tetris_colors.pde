@@ -357,6 +357,10 @@ void tetromine_rotation(int tetromine_code){
     }
 }
 
+//void after_line_complete(){
+
+//}
+
 
 boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and stores its initial positions in the arrays
 
@@ -382,7 +386,7 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
     return true;
 }
 
-void complete_lines(){ //Searches and erases lines  NO CUENTA LAS LINEAS COMPLETAS
+void complete_lines(){ //Searches and erases lines 
     color block_color; // Variable that stores the color of the initial block of a line
     int completed_lines = 0;
     boolean completed_line = true;
@@ -418,10 +422,8 @@ void complete_lines(){ //Searches and erases lines  NO CUENTA LAS LINEAS COMPLET
 
     for(int i = 0; i < completed_lines; ++i){
         for(int j = 0; j < 10; ++j){
-            scenario[auxiliar_index][j] = 0;
+            scenario[lines[i]][j] = 0;
         }
-
-        ++auxiliar_index;        
     }
 
     print("lines completed: ");
