@@ -92,6 +92,11 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
         break;
 
         case 3:{
+            if(movil_tetromine_x[0] == 0)
+            {
+               movement(movil_tetromine_x, movil_tetromine_y, 1); //Because is near the border, it is necessary to move it to the left 
+            }
+
             ref_y = movil_tetromine_y[3];
             ref_x = movil_tetromine_x[3];
 
@@ -132,6 +137,7 @@ void setup(){
 float square_size = 25.6;
 boolean end = false; // Indicates if the tetromine movement has end
 
+
 color tetromine_color;
 int tetromine_code; // Tetromine identificator
 
@@ -171,6 +177,7 @@ void draw(){
     scenario_painting();
 
     if(end == false){
+        complete_lines();
         tetromine_code = movil_tetromine_selector(); 
         end = tetromine_appear(tetromine_code);
     }
@@ -180,6 +187,7 @@ void draw(){
         tempo = 0;
     }
     ++tempo;
+    
 }
 
 
@@ -334,19 +342,13 @@ boolean gravity(int[] movil_tetromine_x, int[] movil_tetromine_y, color tetromin
         y = movil_tetromine_y[i];
             
         scenario[y][x] = 255;
-
-        print(y);
-        print(' ');
-        print(x);
-        print("\n");
     }
 
-    print('\n');
     return true; 
 }
 
 void tetromine_rotation(int tetromine_code){
-    tempo = 15;
+    tempo -= 1;
 
     switch(tetromine_code){
         case 1: {
@@ -378,4 +380,52 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
     }
 
     return true;
+}
+
+void complete_lines(){ //Searches and erases lines  NO CUENTA LAS LINEAS COMPLETAS
+    color block_color; // Variable that stores the color of the initial block of a line
+    int completed_lines = 0;
+    boolean completed_line = true;
+
+    int[] lines = new int[20]; // Array that stores the completed lines
+    int auxiliar_index = 0;
+
+    for(int i = 0; i < 20; ++i){
+        block_color = scenario[i][0];
+
+        if(block_color != 0)
+        {
+            for(int j = 1; j < 10; ++j){
+                if(block_color != scenario[i][j])
+                {
+                    completed_line = false;
+                    break;
+                }
+            }
+        
+            if(completed_line){
+                lines[auxiliar_index] = i;
+                ++completed_lines;
+                ++auxiliar_index; 
+            }
+        }
+
+        completed_line = true;
+        
+    }
+
+    auxiliar_index = 0;
+
+    for(int i = 0; i < completed_lines; ++i){
+        for(int j = 0; j < 10; ++j){
+            scenario[auxiliar_index][j] = 0;
+        }
+
+        ++auxiliar_index;        
+    }
+
+    print("lines completed: ");
+    print(completed_lines);
+    print("\n\n");    
+
 }
