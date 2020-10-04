@@ -561,7 +561,7 @@ int L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
 }
 
 
-int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ // Rotates T tetromine using a reference block (A static one)
+int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ // Rotates T tetromine using a reference block (A static one) (Same with the other tetrominos)
     int ref_x; // Coords of the reference block
     int ref_y;
 
@@ -600,7 +600,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
 
             if(movil_tetromine_x[0] == 9 || scenario[movil_tetromine_y[0]][movil_tetromine_x[0] + 1] != 255)
             {
-               movement(movil_tetromine_x, movil_tetromine_y, 2); //Because is near the border, it is necessary to move it to the left 
+               movement(movil_tetromine_x, movil_tetromine_y, 2);  
             }
 
             ref_y = movil_tetromine_y[2];
@@ -656,7 +656,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
         case 3:{
             if(movil_tetromine_x[0] == 0 || scenario[movil_tetromine_y[0]][movil_tetromine_x[0] - 1] != 255)
             {
-               movement(movil_tetromine_x, movil_tetromine_y, 1); //Because is near the border, it is necessary to move it to the left 
+               movement(movil_tetromine_x, movil_tetromine_y, 1);  
             }
 
             ref_y = movil_tetromine_y[3];
@@ -686,7 +686,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// (UP) Specific Tetromino rotations
 
 
 void setup(){
@@ -697,7 +697,7 @@ void setup(){
 }
 
 float square_size = 25.6;
-boolean end = false; // Indicates if the tetromine movement has end
+boolean end = false; // Indicates if the tetromine movement has ended (false if yes for a little mistake in implementation)
 
 int points = 0;
 
@@ -706,7 +706,7 @@ int tetromine_code; // Tetromine identificator
 
 boolean game_over = false;
 
-int tempo; // Temporizer variable
+int tempo; // Temporizer variable, Says how fast the tetrominos fall
 
 int rotation = 0; // Variable that indicates the roation number, 0 is the initial
 
@@ -747,7 +747,7 @@ void draw(){
         end = tetromine_appear(tetromine_code);
     }
     
-    if((scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255 && scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 0) && movil_tetromine_y[3] == 0){
+    if((scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255 && scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 0) && movil_tetromine_y[3] == 0){ // Conditions for calling a game over
         game_over = true;
 
         for(int i = 0; i < 20; ++i){
@@ -771,17 +771,17 @@ void draw(){
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Mechanics functions
 
-void game_over(){
+void game_over(){ // Function that occurs when the game is over, displaying the final score
     textSize(32);
     fill(255);
     text("SCORE", 80, 200);
-    text(str(points), 120, 250);
+    text(str(points), 80, 250);
 }
 
 
-void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_code){
+void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_code){ // Stores the multiple movements of the mobile tetromino
     boolean possible = true;
     
     int y; // Auxiliar variables
@@ -849,7 +849,7 @@ void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_cod
     
 }
 
-void keyPressed() {
+void keyPressed() { // Controls the key inputs
     if(key == 'r'){
         tetromine_rotation(tetromine_code);
         //print(rotation);
@@ -981,7 +981,7 @@ boolean gravity(int[] movil_tetromine_x, int[] movil_tetromine_y, color tetromin
     return true; 
 }
 
-void tetromine_rotation(int tetromine_code){
+void tetromine_rotation(int tetromine_code){ // Calls a rotation function with the tetromine code
     tempo -= 1;
 
     switch(tetromine_code){
@@ -1017,7 +1017,7 @@ void tetromine_rotation(int tetromine_code){
     }
 }
 
-void after_line_complete(int[] lines, int completed_lines){
+void after_line_complete(int[] lines, int completed_lines){ // Makes that everything falls again after a line or lines disappear
     int first_line = lines[0];
 
     for(int i = 1; i < completed_lines; ++i){
@@ -1032,10 +1032,6 @@ void after_line_complete(int[] lines, int completed_lines){
             scenario[i][j] = 0;
         }
     }
-
-    print("First line: ");
-    print(first_line);
-    print("\n\n");
 
 }
 
@@ -1166,7 +1162,7 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
     return true;
 }
 
-int complete_lines(int points){ //Searches and erases lines 
+int complete_lines(int points){ //Searches and erases lines and updates the points 
     color block_color; // Variable that stores the color of the initial block of a line
     int completed_lines = 0;
     boolean completed_line = true;
@@ -1207,14 +1203,6 @@ int complete_lines(int points){ //Searches and erases lines
     }
 
     points += 100 * completed_lines;
-
-    print("Points: ");
-    print(points);
-    print("\n\n");
-    print("lines completed: ");
-    print(completed_lines);
-    print("\n\n");
-
     after_line_complete(lines, completed_lines); 
 
     return points;   
