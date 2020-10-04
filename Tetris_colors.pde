@@ -704,6 +704,8 @@ int points = 0;
 color tetromine_color;
 int tetromine_code; // Tetromine identificator
 
+boolean game_over = false;
+
 int tempo; // Temporizer variable
 
 int rotation = 0; // Variable that indicates the roation number, 0 is the initial
@@ -739,24 +741,44 @@ color[][] scenario =
 void draw(){
     scenario_painting();
 
-    if(end == false){
+    if(end == false && game_over == false){
         points = complete_lines(points);
         tetromine_code = movil_tetromine_selector(); 
         end = tetromine_appear(tetromine_code);
     }
     
-    if(tempo / 30 == 1){
+    if((scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255 && scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 0) && movil_tetromine_y[3] == 0){
+        game_over = true;
+
+        for(int i = 0; i < 20; ++i){
+            for(int j = 0; j < 10; ++j){
+             scenario[i][j] = 0;
+           }
+        }
+    }
+
+    if(tempo / 30 == 1 && game_over == false){
         end = gravity(movil_tetromine_x, movil_tetromine_y, tetromine_color);
         tempo = 0;
     }
+
+    if(game_over)
+    {
+        game_over();   
+    }
     ++tempo;
-    
+   
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+void game_over(){
+    textSize(32);
+    fill(255);
+    text("SCORE", 80, 200);
+    text(str(points), 120, 250);
+}
 
 
 void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_code){
