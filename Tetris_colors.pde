@@ -357,9 +357,27 @@ void tetromine_rotation(int tetromine_code){
     }
 }
 
-//void after_line_complete(){
+void after_line_complete(int[] lines, int completed_lines){
+    int first_line = lines[0];
 
-//}
+    for(int i = 1; i < completed_lines; ++i){
+        if(lines[i] < first_line){
+            first_line = lines[i];
+        }
+    }
+
+    for(int i = first_line - 1; i >= 0; --i){
+        for(int j = 0; j < 10; ++j){
+            scenario[i + completed_lines][j] = scenario[i][j];
+            scenario[i][j] = 0;
+        }
+    }
+
+    print("First line: ");
+    print(first_line);
+    print("\n\n");
+
+}
 
 
 boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and stores its initial positions in the arrays
@@ -428,6 +446,8 @@ void complete_lines(){ //Searches and erases lines
 
     print("lines completed: ");
     print(completed_lines);
-    print("\n\n");    
+    print("\n\n");
+
+    after_line_complete(lines, completed_lines);    
 
 }
