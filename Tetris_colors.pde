@@ -754,7 +754,7 @@ void complete_lines(){ //Searches and erases lines
         if(block_color != 0)
         {
             for(int j = 1; j < 10; ++j){
-                if(block_color != scenario[i][j])
+                if(scenario[i][j] == 0)
                 {
                     completed_line = false;
                     break;
