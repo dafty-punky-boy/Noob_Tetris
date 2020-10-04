@@ -388,6 +388,7 @@ void setup(){
 float square_size = 25.6;
 boolean end = false; // Indicates if the tetromine movement has end
 
+int points = 0;
 
 color tetromine_color;
 int tetromine_code; // Tetromine identificator
@@ -428,7 +429,7 @@ void draw(){
     scenario_painting();
 
     if(end == false){
-        complete_lines();
+        points = complete_lines(points);
         tetromine_code = movil_tetromine_selector(); 
         end = tetromine_appear(tetromine_code);
     }
@@ -545,7 +546,7 @@ void scenario_painting(){ // Reads the matrix and paints the colors
 }
 
 int movil_tetromine_selector(){ // Selects the next tetromine and returns its code
-    int code = int(random(1.0, 4.0));
+    int code = int(random(1.0, 5.0));
     //int code = 2;
     switch(code){
         case 1:{ // T
@@ -578,6 +579,8 @@ int movil_tetromine_selector(){ // Selects the next tetromine and returns its co
             scenario[2][4] = 255;
             scenario[3][4] = 255;
         }
+        break;
+
     }
 
 
@@ -740,7 +743,7 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
     return true;
 }
 
-void complete_lines(){ //Searches and erases lines 
+int complete_lines(int points){ //Searches and erases lines 
     color block_color; // Variable that stores the color of the initial block of a line
     int completed_lines = 0;
     boolean completed_line = true;
@@ -780,10 +783,17 @@ void complete_lines(){ //Searches and erases lines
         }
     }
 
+    points += 100 * completed_lines;
+
+    print("Points: ");
+    print(points);
+    print("\n\n");
     print("lines completed: ");
     print(completed_lines);
     print("\n\n");
 
-    after_line_complete(lines, completed_lines);    
+    after_line_complete(lines, completed_lines); 
+
+    return points;   
 
 }
