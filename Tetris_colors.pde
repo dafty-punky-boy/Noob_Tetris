@@ -692,7 +692,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
 void setup(){
 
     size(256, 512);
-    surface.setTitle("100% REAL NO FAKE TETRIS");
+    surface.setTitle("NOOB TETRIS");
 
 }
 
@@ -857,8 +857,8 @@ void scenario_painting(){ // Reads the matrix and paints the colors
 }
 
 int movil_tetromine_selector(){ // Selects the next tetromine and returns its code
-    //int code = int(random(1.0, 7.0));
-    int code = 7;
+    int code = int(random(1.0, 8.0));
+
     switch(code){
         case 1:{ // T
             scenario[0][4] = 255;
@@ -1052,7 +1052,7 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
             movil_tetromine_x[3] = 4;
             movil_tetromine_y[3] = 0;
 
-            tetromine_color = #FFA500;
+            tetromine_color = #0000CD;
         }
         break;
 
@@ -1103,7 +1103,7 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
             movil_tetromine_x[3] = 4;
             movil_tetromine_y[3] = 0;
 
-            tetromine_color = #0000CD;
+            tetromine_color = #FF4500;
         }
         break;
 
