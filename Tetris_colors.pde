@@ -63,7 +63,7 @@ int I_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
 
         case 1:{
 
-           if(movil_tetromine_y[3] == 19){
+           if(movil_tetromine_y[3] == 19 || scenario[movil_tetromine_y[3] + 1][movil_tetromine_x[3]] != 255){
                 for(int i = 0; i < 3; ++i){
                     UP(movil_tetromine_x, movil_tetromine_y);
                 }
@@ -111,7 +111,7 @@ int L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
                 movement(movil_tetromine_x, movil_tetromine_y, 1);
             }
 
-            if(movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255)
+            if((movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255) && movil_tetromine_y[2] != 0)
             {
                 UP(movil_tetromine_x, movil_tetromine_y);
             }
@@ -257,7 +257,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
     switch(rotation){
         case 0:{
 
-            if(movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255)
+            if((movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255) && movil_tetromine_y[3] != 0)
             {
                 UP(movil_tetromine_x, movil_tetromine_y);
             }
@@ -545,8 +545,8 @@ void scenario_painting(){ // Reads the matrix and paints the colors
 }
 
 int movil_tetromine_selector(){ // Selects the next tetromine and returns its code
-//    int code = int(random(1, 8.1));
-    int code = 2;
+    int code = int(random(1.0, 4.0));
+    //int code = 2;
     switch(code){
         case 1:{ // T
             scenario[0][4] = 255;
@@ -667,7 +667,7 @@ void after_line_complete(int[] lines, int completed_lines){
 
 boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and stores its initial positions in the arrays
 
-    switch(movil_tetromine_selector()){ 
+    switch(tetromine_code){ 
         case 1:{
             movil_tetromine_x[0] = 5; // Sorted form the bottom to the top
             movil_tetromine_y[0] = 1;
