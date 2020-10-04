@@ -18,6 +18,10 @@ void UP(int[] movil_tetromine_x, int[] movil_tetromine_y){ //Moves up the tetrom
     }
 }
 
+//int R_L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
+
+//}
+
 int I_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
     int ref_x;
     int ref_y;
@@ -102,12 +106,12 @@ int L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
     switch(rotation){
         case 0:{
 
-            if(movil_tetromine_x[3] == 0)
+            if(movil_tetromine_x[3] == 0 || scenario[movil_tetromine_y[3]][movil_tetromine_x[3] - 1] != 255)
             {
                 movement(movil_tetromine_x, movil_tetromine_y, 1);
             }
 
-            if(movil_tetromine_y[0] == 19)
+            if(movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255)
             {
                 UP(movil_tetromine_x, movil_tetromine_y);
             }
@@ -140,12 +144,12 @@ int L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
 
         case 1:{
 
-            if(movil_tetromine_x[1] == 9)
+            if(movil_tetromine_x[1] == 9 || scenario[movil_tetromine_y[1]][movil_tetromine_x[1] + 1] != 255)
             {
                 movement(movil_tetromine_x, movil_tetromine_y, 2);
             }
 
-            if(movil_tetromine_y[0] == 19)
+            if(movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255)
             {
                 UP(movil_tetromine_x, movil_tetromine_y);
             }
@@ -178,7 +182,7 @@ int L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
 
         case 2:{
 
-            if(movil_tetromine_x[0] == 9)
+            if(movil_tetromine_x[0] == 9 || scenario[movil_tetromine_y[0]][movil_tetromine_x[0] + 1] != 255)
             {
                 movement(movil_tetromine_x, movil_tetromine_y, 2);
             }
@@ -211,7 +215,7 @@ int L_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
 
         case 3:{
 
-            if(movil_tetromine_x[2] == 0)
+            if(movil_tetromine_x[2] == 0 || scenario[movil_tetromine_y[2]][movil_tetromine_x[2] - 1] != 255)
             {
                 movement(movil_tetromine_x, movil_tetromine_y, 1);
             }
@@ -253,7 +257,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
     switch(rotation){
         case 0:{
 
-            if(movil_tetromine_y[0] == 19)
+            if(movil_tetromine_y[0] == 19 || scenario[movil_tetromine_y[0] + 1][movil_tetromine_x[0]] != 255)
             {
                 UP(movil_tetromine_x, movil_tetromine_y);
             }
@@ -283,7 +287,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
 
         case 1:{
 
-            if(movil_tetromine_x[0] == 9)
+            if(movil_tetromine_x[0] == 9 || scenario[movil_tetromine_y[0]][movil_tetromine_x[0] + 1] != 255)
             {
                movement(movil_tetromine_x, movil_tetromine_y, 2); //Because is near the border, it is necessary to move it to the left 
             }
@@ -339,7 +343,7 @@ int T_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){ 
         break;
 
         case 3:{
-            if(movil_tetromine_x[0] == 0)
+            if(movil_tetromine_x[0] == 0 || scenario[movil_tetromine_y[0]][movil_tetromine_x[0] - 1] != 255)
             {
                movement(movil_tetromine_x, movil_tetromine_y, 1); //Because is near the border, it is necessary to move it to the left 
             }
@@ -542,7 +546,7 @@ void scenario_painting(){ // Reads the matrix and paints the colors
 
 int movil_tetromine_selector(){ // Selects the next tetromine and returns its code
 //    int code = int(random(1, 8.1));
-    int code = 4;
+    int code = 2;
     switch(code){
         case 1:{ // T
             scenario[0][4] = 255;
