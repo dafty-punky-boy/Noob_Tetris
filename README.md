@@ -3,6 +3,10 @@
 <br>
 
 This is a little project made as a structured programming revision. A very minimalistic and not so optimized Tetris.
+
+<br>
+
+In the case you don't know what a Tetris is, [check this link](https://en.wikipedia.org/wiki/Tetris).
   
 <br>
 
