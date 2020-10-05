@@ -112,7 +112,7 @@ int N_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
             if(movil_tetromine_x[0] == 0 || scenario[movil_tetromine_y[0]][movil_tetromine_x[0] - 1] != 255)
             {
                for(int i = 0; i < 2; ++i){
-                   movement(movil_tetromine_x, movil_tetromine_y, 1); //Because is near the border, it is necessary to move it to the left
+                   movement(movil_tetromine_x, movil_tetromine_y, 1); 
                }
                 
             }
@@ -852,7 +852,6 @@ void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_cod
 void keyPressed() { // Controls the key inputs
     if(key == 'r'){
         tetromine_rotation(tetromine_code);
-        //print(rotation);
     }
     if(key == CODED){
         if(keyCode == RIGHT){
