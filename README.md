@@ -2,7 +2,7 @@
 ## **General information**
 <br>
 
-### This is a little project made as a structured programming revision. A very minimalistic and not so optimized Tetris.
+This is a little project made as a structured programming revision. A very minimalistic and not so optimized Tetris.
   
 <br>
 
@@ -11,7 +11,7 @@ ___
 ## **Gaming Instructions**
 <br>
 
-### Use the arrow keys (Left, Right and Down) to move the tetromino, and press the "R" key to rotate it.
+Use the arrow keys (Left, Right and Down) to move the tetromino, and press the "R" key to rotate it.
 
 <br>
 
@@ -20,7 +20,7 @@ ___
 ## **Code General Review**
 <br>
 
-### First of all, the code is written using Processing and has around 1200 lines, that's mainly because the way tetromino rotations were implemented. The general structure is divided in three parts. 
+First of all, the code is written using Processing and has around 1200 lines, that's mainly because the way tetromino rotations were implemented. The general structure is divided in three parts. 
 <br>
 
 ## **Main Part**
@@ -110,21 +110,21 @@ void draw(){
 ```
 <br>
 
-### This part stores the `setup()` and `draw()` functions, and is the main because implements and executes the rest of the code. In order to make the board of the game without struggling with sizes for each kind of screen, I decided to stablish an unique window size with the board matrix covering it all, and from here, make it minimalistic. The board is a color matrix, where initialy every block (window portion) is black, for tracking the mobile tetromino (The one the player controls) I use two integer arrays `movil_tetromine_x` and `movil_tetromine_y` to store the x and y coordinates, where the block's "Identity" is the index of both.
+This part stores the `setup()` and `draw()` functions, and is the main because implements and executes the rest of the code. In order to make the board of the game without struggling with sizes for each kind of screen, I decided to stablish an unique window size with the board matrix covering it all, and from here, make it minimalistic. The board is a color matrix, where initialy every block (window portion) is black, for tracking the mobile tetromino (The one the player controls) I use two integer arrays `movil_tetromine_x` and `movil_tetromine_y` to store the x and y coordinates, where the block's "Identity" is the index of both.
 
 <br>
 
-### The general flow of the program is:
-1. ### Displays the board reading the matrix.
-2. ### Checks if the tetromino has ended its movement and displays another one if yes.
-3. ### Checks if is a game over.
-4. ### Calls `gravity()` if the condition is done.
-5. ### If it is a game over calls the `game_over()`.
-6. ### Increments the tempo variable.
+The general flow of the program is:
+1. Displays the board reading the matrix.
+2. Checks if the tetromino has ended its movement and displays another one if yes.
+3. Checks if is a game over.
+4. Calls `gravity()` if the condition is done.
+5. If it is a game over calls the `game_over()`.
+6. Increments the tempo variable.
 
 <br>
 
-### The information about the functions used here is in the other parts
+The information about the functions used here is in the other parts
 
 <br>
 
@@ -148,7 +148,7 @@ void scenario_painting(){ // Reads the matrix and paints the colors
 
 <br>
 
-### Displays the board reading the colors stored in the matrix, using the `square_size` as a constant.
+Displays the board reading the colors stored in the matrix, using the `square_size` as a constant.
 
 <br>
 
@@ -167,7 +167,7 @@ void game_over(){ // Function that occurs when the game is over, displaying the 
 
 <br>
 
-### Displays the final score when there is a game over.
+Displays the final score when there is a game over.
 
 <br>
 
@@ -247,7 +247,7 @@ void movement(int[] movil_tetromine_x, int[] movil_tetromine_y, int movement_cod
 
 <br>
 
-### Using the coordinates arrays, moves the tetromino block by block by first checking (block by block as well) if it is possible to do that move, if it moves, then updates the matrix and the arrays. This function requires the `movement_code` given by `key_Pressed()`.
+Using the coordinates arrays, moves the tetromino block by block by first checking (block by block as well) if it is possible to do that move, if it moves, then updates the matrix and the arrays. This function requires the `movement_code` given by `key_Pressed()`.
 
 <br>
 
@@ -278,7 +278,7 @@ void keyPressed() { // Controls the key inputs
 
 <br>
 
-### Depending of the key pressed, calls `movement()` with a different kind of movement. I consider remarkable saying that the tetromino movement occurs parallel with the general flow.
+Depending of the key pressed, calls `movement()` with a different kind of movement. I consider remarkable saying that the tetromino movement occurs parallel with the general flow.
 
 <br>
 
@@ -355,7 +355,7 @@ int movil_tetromine_selector(){ // Selects the next tetromine and returns its co
 
 <br>
 
-### Randomly selects a `tetromine_code` and returns it, updating the matrix with each block of the tetromino selected.
+Randomly selects a `tetromine_code` and returns it, updating the matrix with each block of the tetromino selected.
 
 <br>
 
@@ -405,7 +405,7 @@ int movil_tetromine_selector(){ // Selects the next tetromine and returns its co
 
 <br>
 
-### Checks block by block if the mobile tetromino can keep falling, if not, it places it in the matrix with its `tetromine_color` and returns `false` to indicate its movement has ended, if it can, moves down the tetromino block by block. An important thing in the way I implemented the mobile tetromino is that the program recognizes it by its different color (white or `255` in the code) I found this as a quick and useful solution to some problems I had while implementing it.
+Checks block by block if the mobile tetromino can keep falling, if not, it places it in the matrix with its `tetromine_color` and returns `false` to indicate its movement has ended, if it can, moves down the tetromino block by block. An important thing in the way I implemented the mobile tetromino is that the program recognizes it by its different color (white or `255` in the code) I found this as a quick and useful solution to some problems I had while implementing it.
 
 <br>
 
@@ -453,7 +453,7 @@ int movil_tetromine_selector(){ // Selects the next tetromine and returns its co
 
 <br>
 
-### Depending of the `tetromine_code` calls a specific tetromino rotation, it also decreases a bit the `tempo` to delay the tetromino falling.
+Depending of the `tetromine_code` calls a specific tetromino rotation, it also decreases a bit the `tempo` to delay the tetromino falling.
 
 <br>
 
@@ -483,7 +483,7 @@ void after_line_complete(int[] lines, int completed_lines){ // Makes that everyt
 
 <br>
 
-### After the completed lines are erased this function is called. It makes that everything above the first line (from top to bottom) move down a number of  `completed_lines` lines. It requires the array `lines` and `completed_lines` given by `complete_lines()`.
+After the completed lines are erased this function is called. It makes that everything above the first line (from top to bottom) move down a number of  `completed_lines` lines. It requires the array `lines` and `completed_lines` given by `complete_lines()`.
 
 <br>
 
@@ -621,7 +621,7 @@ boolean tetromine_appear(int tetromine_code){ // Paints the movil tetromine and 
 
 <br>
 
-### Updates the coordinates arrays depending of the `tetromine_code` and updates the `tetromine_color`. Returns `true` indicating that a new tetromino has appeared.
+Updates the coordinates arrays depending of the `tetromine_code` and updates the `tetromine_color`. Returns `true` indicating that a new tetromino has appeared.
 
 <br>
 
@@ -680,7 +680,7 @@ int complete_lines(int points){ //Searches and erases lines and updates the poin
 
 <br>
 
-### Searches and erases completed lines (Turning those matrix lines black) recognizing a completed line when there isn't a single black block in it, also, stores the lines index, the total lines completed, and changes and returns `points` depending of the number of lines completed.
+Searches and erases completed lines (Turning those matrix lines black) recognizing a completed line when there isn't a single black block in it, also, stores the lines index, the total lines completed, and changes and returns `points` depending of the number of lines completed.
 
 <br>
 
@@ -688,11 +688,11 @@ int complete_lines(int points){ //Searches and erases lines and updates the poin
 
 <br>
 
-### The main reason for the large amount of lines for this project is because I decided to implement specific rotations to each tetromino, being this the unique solution that I saw while thinking how to do it (Considering that the program doesn't recognize the tetrominos, but its individual blocks) However, despite being long and verbose, it works well and it is easy to debug because I can know specifically which rotation isn't working well.
+The main reason for the large amount of lines for this project is because I decided to implement specific rotations to each tetromino, being this the unique solution that I saw while thinking how to do it (Considering that the program doesn't recognize the tetrominos, but its individual blocks) However, despite being long and verbose, it works well and it is easy to debug because I can know specifically which rotation isn't working well.
 
 <br>
 
-### As the algorithm is the same for every tetromino, I will review only one of the rotation functions and the auxiliar functions used here.
+As the algorithm is the same for every tetromino, I will review only one of the rotation functions and the auxiliar functions used here.
 
 <br>
 
@@ -710,7 +710,7 @@ void tetromine_update(int[] movil_tetromine_x, int[] movil_tetromine_y){ // Eras
 
 <br>
 
-### Erases the mobile tetromine in the display (This allows it be updated later).
+Erases the mobile tetromine in the display (This allows it be updated later).
 
 <br>
 
@@ -736,11 +736,11 @@ void UP(int[] movil_tetromine_x, int[] movil_tetromine_y){ //Moves up the tetrom
 
 <br>
 
-### This function is used to move up the blocks of the tetromino before a rotation occurs to prevent some kinds of errors.
+This function is used to move up the blocks of the tetromino before a rotation occurs to prevent some kinds of errors.
 
 <br>
 
-### Now, the rotation function of the tetromino similar to a "N":
+Now, the rotation function of the tetromino similar to a "N":
 
 <br>
 
@@ -830,11 +830,11 @@ int N_rotation(int rotation, int[] movil_tetromine_x, int[] movil_tetromine_y){
 
 <br>
 
-### The algorithm is based in knowing in which state the tetromino is with `rotation`, where the `0` value is for the intial state. When a rotation occurs, depending of the `rotation`, it selects a block of the initial tetromino as a reference (Storing its coordinates) erases the initial tetromino in the matrix and hence that in the display, and then, using that reference block creates and displays a new tetromino (the initial but rotated) and updates its coordinates in the arrays, increasing `rotation` and turning it `0` when after the rotation it returns to the first tetromino appeared.
+The algorithm is based in knowing in which state the tetromino is with `rotation`, where the `0` value is for the intial state. When a rotation occurs, depending of the `rotation`, it selects a block of the initial tetromino as a reference (Storing its coordinates) erases the initial tetromino in the matrix and hence that in the display, and then, using that reference block creates and displays a new tetromino (the initial but rotated) and updates its coordinates in the arrays, increasing `rotation` and turning it `0` when after the rotation it returns to the first tetromino appeared.
 
 <br>
 
-### As a last thing to bear in mind, when it updates the arrays does it from the major to the minor index (from bottom to top in `y` and from rigth to left in `x`) this because other functions like `movement()` or `gravity()` work better with this organization.
+As a last thing to bear in mind, when it updates the arrays does it from the major to the minor index (from bottom to top in `y` and from rigth to left in `x`) this because other functions like `movement()` or `gravity()` work better with this organization.
 
 
 
